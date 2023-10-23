@@ -28,6 +28,6 @@ services:
     build: .
     image: simple-server
     container_name: simple_server
-    command: ["python", "-m", "main"]
+    command: ["opentelemetry-instrument", "python", "-m", "main"]
     ports:
       - "8193:8193"
