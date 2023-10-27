@@ -6,13 +6,11 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - ./prometheus.yaml:/etc/prometheus.yaml
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
 
   collector:
     image: otel/opentelemetry-collector-contrib
     container_name: simple-otel
-    environment:
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4318
     volumes:
       - ./otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
     ports:
@@ -28,6 +26,8 @@ services:
     build: .
     image: simple-server
     container_name: simple_server
+    environment:
+      - OTEL_SERVICE_NAME="simple.app"
     command: ["opentelemetry-instrument", "python", "-m", "main"]
     ports:
       - "8193:8193"
