@@ -18,7 +18,7 @@ meter_provider = MeterProvider(
                         ConsoleMetricExporter(), export_interval_millis=5000
                     ),
                     PeriodicExportingMetricReader(
-                        OTLPMetricExporter(endpoint="collector:4317", insecure=True),
+                        OTLPMetricExporter(endpoint="simple-otel:4317", insecure=True),
                         export_interval_millis=5000,
                     ),
                 ]

@@ -7,13 +7,13 @@ rule_files:
   # - "second.rules"
 
 scrape_configs:
-  - job_name: prometheus
-    static_configs:
-      - targets: ['collector:9090']
+  # - job_name: prometheus
+  #   static_configs:
+  #     - targets: ['collector:9090']
 
   - job_name: collector
     static_configs:
-      - targets: ['collector:8888']
+      - targets: ['simple-otel:8888']
 
 #  - job_name: server
 #    static_configs:
