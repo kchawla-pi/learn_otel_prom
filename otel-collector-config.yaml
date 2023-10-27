@@ -2,16 +2,17 @@ receivers:
  otlp:
    protocols:
      http:
-       endpoint: collector:4318
      grpc:
-       endpoint: collector:4317
 
 processors:
   batch:
 
 exporters:
+  debug:
+    verbosity: detailed
+    sampling_initial: 500
   prometheusremotewrite: # the PRW exporter, to ingest metrics to backend
-    endpoint: collector:8888
+    endpoint: 'http://host.docker.internal:9090/api/v1/write'
     tls:
       insecure: true
 
@@ -20,4 +21,7 @@ service:
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [prometheusremotewrite]
+      exporters: [debug, prometheusremotewrite]
+  telemetry:
+    logs:
+      level: "debug"
